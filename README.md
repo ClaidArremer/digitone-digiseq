@@ -35,14 +35,14 @@ of the note a step plays. 185's held stages need it. Mods built for seq-events 0
 
 ## Install
 
-In the elekloader app, add both files for your OS from `elemods/`: `digiseq-0.1-os1.44.elemod` and
+In the elekloader app, add both files for your OS from `elemods/`: `digiseq-0.2-os1.44.elemod` and
 `seq-events-0.2-os1.44.elemod` (or the two `-os1.43` files). Untick DIGISNAKE and any older seq-events, keep
 the app's core-dn1 ticked, build, and send the firmware to the Digitone. From the command line:
 
 ```
 python -m elekloader.patch --stock Digitone_and_Digitone_Keys_OS1.44.syx \
   --mod core-4.1.1-os1.44.elemod --mod elemods/seq-events-0.2-os1.44.elemod \
-  --mod elemods/digiseq-0.1-os1.44.elemod --out Digitone_digiseq.syx
+  --mod elemods/digiseq-0.2-os1.44.elemod --out Digitone_digiseq.syx
 ```
 
 ## Opening it and choosing a type
@@ -136,7 +136,7 @@ PAGE is the TRIG key, held. On OS 1.44 every action shows the stock drop-down me
 | FUNC + NO | Back to before the last run of FUNC + YES |
 | FUNC + knob | Jump to preset values (pitches, velocities, RANGE) |
 
-Print keeps lock trigs and parameter locks, and a 2X track stays at 2X. With DIR on RND it freezes one run.
+Print keeps lock trigs and parameter locks, clears the micro timing and trig condition of each step it writes a note to, and a 2X track stays at 2X. With DIR on RND it freezes one run.
 
 ## With DIRECT JUMP
 
@@ -155,6 +155,9 @@ alike. A legato jump leaves them playing on.
 
 ## Changes
 
+- **0.2**: PRINT puts each printed note on its step with no trig condition, so a trig left there from before
+  can no longer shift it (micro timing) or mute it on some loops (a condition such as 1:2). Steps a type plays
+  ignore the track's own trigs' conditions and probabilities.
 - **0.1**: the first version: SNAKE (from DIGISNAKE 1.3) and 185. Run in an emulator (digiemu), then played on a
   Digitone mk1 (OS 1.44) with PUMP 2.10, DIRECT JUMP 1.5, DIGICOMPLEX, DH-101, digihealth and LØST LVLS.
 

@@ -1,6 +1,6 @@
 {
  "id": "digiseq",
- "version": "0.1",
+ "version": "0.2",
  "title": "DIGISEQ",
  "category": "Sequencer",
  "license": "GPL-2.0-or-later",
@@ -47,6 +47,11 @@
   {
    "event": "ev_fire_len",
    "fn": "digiseq_len",
+   "order": 50
+  },
+  {
+   "event": "ev_fire_cond",
+   "fn": "digiseq_cond",
    "order": 50
   },
   {

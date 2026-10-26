@@ -732,6 +732,15 @@ void digiseq_vel(int32_t track, int32_t step, int32_t *vel)
         *vel = digiseq_snake[track].vel[play[track].cell];
 }
 
+/* A step the type fires plays, whatever trig condition or probability a
+ * stored trig on that step had: those belong to the track's own trigs. */
+void digiseq_cond(int32_t track, int32_t step, int32_t *pass)
+{
+    (void)step;
+    if (data_ready && (uint32_t)track < TRACKS && digiseq_trk[track].on)
+        *pass = 1;
+}
+
 /* 185: a HOLD's note lasts its stage; LEN (SETUP) sets the others' (TRK:
  * the track's LEN, so the steps' own LEN locks from before do not show) */
 #define TR_LEN_OFF_TRACK 0x3c2
@@ -825,9 +834,13 @@ static void speed_sync(void)
  * start (or, playing, from where it is), and writes each step as a stock
  * trig: the trig bit (lock trigs kept), its note (one; no chord), its
  * velocity and its LEN (185's held and LEN-set notes; the others the
- * track's), then sets TYPE to OFF. A 2X speed stays. */
+ * track's), then sets TYPE to OFF. A printed note is put on its step (micro
+ * timing +0x100: 0) with no trig condition (+0x140: -1), so a trig left there
+ * from before cannot shift or mute it. A 2X speed stays. */
 #define TR_VEL_OFF   0x080
 #define TR_LEN_OFF   0x0c0
+#define TR_MICRO_OFF 0x100                 /* a step's micro timing, 0: on the step */
+#define TR_COND_OFF  0x140                 /* its trig condition or probability, -1: none */
 #define TR_NOTES_OFF 0x1c0
 static uint8_t print_bak[976];
 static signed char print_t = -1;
@@ -901,6 +914,10 @@ static int print_track(int t)
         for (n = 1; n < 8; n++)
             trk[TR_NOTES_OFF + 8 * step + n] = 0;
         trk[TR_VEL_OFF + step] = (uint8_t)vel;
+        if (fire) {
+            trk[TR_MICRO_OFF + step] = 0;           /* on the step, as it played */
+            trk[TR_COND_OFF + step] = 0xff;         /* no condition: it plays every time */
+        }
         if (k->eng == E_185)
             trk[TR_LEN_OFF + step] = (uint8_t)l;    /* -1 (255): the track's LEN */
     }
