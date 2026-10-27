@@ -1,8 +1,8 @@
 # DIGISEQ for Digitone
 
-**This is the Digitone version**, for the Elektron Digitone mk1 and Digitone Keys. There is no Digitakt
-version yet; [DIGISNAKE for Digitakt](https://github.com/ClaidArremer/digitakt-digisnake) has SNAKE on the
-Digitakt.
+**This is the Digitone version**, for the Elektron Digitone mk1 and Digitone Keys. For the Digitakt mk1, use
+[DIGISEQ for Digitakt](https://github.com/ClaidArremer/digitakt-digiseq) instead: the files here do not run on a
+Digitakt, and the Digitakt's do not run on a Digitone.
 
 Sequencer types for the **Elektron Digitone mk1**, as an [elekloader](https://github.com/irpina/elekloader)
 mod (id `digiseq`). Each track picks its own **TYPE** and plays it in place of its own trigs, so T1 can play
