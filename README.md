@@ -155,11 +155,7 @@ alike. A legato jump leaves them playing on.
 
 ## Changes
 
-- **0.2**: PRINT puts each printed note on its step with no trig condition, so a trig left there from before
-  can no longer shift it (micro timing) or mute it on some loops (a condition such as 1:2). Steps a type plays
-  ignore the track's own trigs' conditions and probabilities.
-- **0.1**: the first version: SNAKE (from DIGISNAKE 1.3) and 185. Run in an emulator (digiemu), then played on a
-  Digitone mk1 (OS 1.44) with PUMP 2.10, DIRECT JUMP 1.5, DIGICOMPLEX, DH-101, digihealth and LØST LVLS.
+See [CHANGELOG.md](CHANGELOG.md).
 
 ## How it works
 
